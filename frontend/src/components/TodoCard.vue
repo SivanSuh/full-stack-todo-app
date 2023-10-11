@@ -8,7 +8,8 @@ export default {
 
 <template>
     <main class="card">
-        <p class="todo">{{todo}}</p>
+        <p class="todo">{{todo.name}}</p>
+        <p class="">{{todo.description}}</p>
     </main>
 </template>
 
@@ -20,6 +21,7 @@ export default {
     transition: transform .2s linear;
     cursor: pointer;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }

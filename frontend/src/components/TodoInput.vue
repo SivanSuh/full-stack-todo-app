@@ -1,60 +1,76 @@
 <script>
-import TodoCard from './TodoCard.vue';
-
+import TodoCard from "./TodoCard.vue";
+import { useTodoStore } from "../stores/todoStore";
 
 export default {
-    data() {
-        return {
-            text: "",
-            todos: []
-        };
-    },
-    methods: {
-        incremant() {
-            this.todos.push({
-                name: this.text
-            });
-            this.text = "";
-        }
-    },
-    components: { TodoCard }
-}
+  data() {
+    return {
+      form: {
+        text: "",
+        description: "",
+      },
+    };
+  },
+  methods: {
+    submitForm(){
+        console.log("form",this.form)
+    }
+  },
+  setup() {
+    const todoStore = useTodoStore();
+    return {
+      dataFunk: todoStore.getTodo(),
+      data: todoStore.datas,
+      name: todoStore.name,
+    };
+  },
+  components: { TodoCard },
+};
 </script>
 
 <template>
-    <main>
-
-        <div class="container">
-            <input class="input" v-model="text" placeholder="Enter Anythink" />
-            <button @click="incremant" class="button">Ekle</button>
-        </div>
-        <div class="wrapper">
-            <TodoCard :todo="data.name" v-for="data in todos" :key="data.name" />
-        </div>
-    </main>
+  <main>
+    <form class="container" @submit.prevent="submitForm">
+      <input class="input" v-model="form.text" placeholder="Enter Name" />
+      <input
+        class="input"
+        v-model="form.description"
+        placeholder="Enter Description"
+      />
+      <button type="submit" class="button">Ekle</button>
+    </form>
+    <div class="wrapper">
+      <TodoCard :todo="da" v-for="da in data" :key="da._id" />
+    </div>
+  </main>
 </template>
 
 <style>
 .input {
-    padding:5px;
-    outline: none;
-    width: 400px;
-    
+  padding: 5px;
+  outline: none;
+  width: 100%;
 }
 .button {
-    padding: 5px;
+  padding: 5px;
+  width: 100%;
 }
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+  width: 100%;
+  margin: auto;
 }
 .wrapper {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 10px ;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px;
 }
 </style>
