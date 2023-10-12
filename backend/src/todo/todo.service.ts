@@ -13,4 +13,8 @@ export class TodoService {
         const newTodo = new this.todoModel(allTodo);
         return await newTodo.save()
     }
+    async deleteTodo(id) {
+        const selectTodo = this.todoModel.findByIdAndDelete(id)
+        return selectTodo
+    }
 }

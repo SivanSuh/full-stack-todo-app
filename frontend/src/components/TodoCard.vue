@@ -1,7 +1,7 @@
 <script>
 export default {
     props:{
-        todo:String
+        todo:Object
     }
 }
 </script>

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { TodoProps } from './todo.model';
 import { TodoService } from './todo.service';
 
@@ -12,5 +12,10 @@ export class TodoController {
   @Get()
   getTodo() {
     return this.todoService.getTodo();
+  }
+  @Delete(":id")
+  deleteTodo(@Param() params: any){
+    console.log("params",params.id)
+    return this.todoService.deleteTodo(params.id)
   }
 }

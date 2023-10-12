@@ -6,24 +6,27 @@ export default {
   data() {
     return {
       form: {
-        text: "",
+        name: "",
         description: "",
       },
     };
   },
-  methods: {
-    submitForm(){
-        console.log("form",this.form)
-    }
-  },
   setup() {
     const todoStore = useTodoStore();
     return {
-      dataFunk: todoStore.getTodo(),
-      data: todoStore.datas,
-      name: todoStore.name,
+      todoStore
     };
   },
+  methods: {
+    async submitForm(){
+      console.log("form ",this.form)
+        this.todoStore.addNewTodo(this.form)
+    }
+  },
+  mounted(){
+    this.todoStore.getTodo()
+  },
+  
   components: { TodoCard },
 };
 </script>
@@ -31,16 +34,17 @@ export default {
 <template>
   <main>
     <form class="container" @submit.prevent="submitForm">
-      <input class="input" v-model="form.text" placeholder="Enter Name" />
+      <input class="input" v-model="form.name" name="name" placeholder="Enter Name" />
       <input
         class="input"
         v-model="form.description"
         placeholder="Enter Description"
+        name="description"
       />
       <button type="submit" class="button">Ekle</button>
     </form>
     <div class="wrapper">
-      <TodoCard :todo="da" v-for="da in data" :key="da._id" />
+      <TodoCard :todo="da" v-for="da in todoStore.datas" :key="da._id" />
     </div>
   </main>
 </template>

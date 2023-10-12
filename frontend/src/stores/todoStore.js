@@ -19,9 +19,17 @@ export const useTodoStore = defineStore("todo-store", {
       try {
         const response = await fetch("http://localhost:3000/todo", {
           method: "POST",
-          body: JSON.stringfy(data),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
         });
-      } catch (error) {}
+
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteTodo(id) {
+      const response = await fetch();
     },
   },
 });
