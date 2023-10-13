@@ -29,7 +29,15 @@ export const useTodoStore = defineStore("todo-store", {
       }
     },
     async deleteTodo(id) {
-      const response = await fetch();
+      try {
+        const response = await fetch(`http://localhost:3000/todo/${id}`, {
+          method: "DELETE",
+        });
+
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 });

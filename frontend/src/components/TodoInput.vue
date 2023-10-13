@@ -1,4 +1,4 @@
-<script>
+<script >
 import TodoCard from "./TodoCard.vue";
 import { useTodoStore } from "../stores/todoStore";
 
@@ -20,10 +20,19 @@ export default {
   methods: {
     async submitForm(){
       console.log("form ",this.form)
+      if(!this.form.description.trim() && !this.form.name.trim()){
+        return 
+      }
+      else {
+
         this.todoStore.addNewTodo(this.form)
+      }
+    },
+    async deleteCard(e){
+      console.log("value ",e)
     }
   },
-  mounted(){
+  async mounted(){
     this.todoStore.getTodo()
   },
   
@@ -44,7 +53,7 @@ export default {
       <button type="submit" class="button">Ekle</button>
     </form>
     <div class="wrapper">
-      <TodoCard :todo="da" v-for="da in todoStore.datas" :key="da._id" />
+      <TodoCard :todo="da" :deleteCard="deleteCard" v-for="da in todoStore.datas" :key="da._id" />
     </div>
   </main>
 </template>
