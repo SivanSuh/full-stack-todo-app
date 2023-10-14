@@ -22,7 +22,7 @@ export const useTodoStore = defineStore("todo-store", {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
-
+        console.log("response add", response);
         return response;
       } catch (error) {
         console.log(error);

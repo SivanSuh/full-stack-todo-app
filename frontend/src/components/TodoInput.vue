@@ -19,23 +19,23 @@ export default {
   },
   methods: {
     async submitForm(){
-      console.log("form ",this.form)
       if(!this.form.description.trim() && !this.form.name.trim()){
         return 
       }
       else {
-
-        this.todoStore.addNewTodo(this.form)
+       await this.todoStore.addNewTodo(this.form)
+        this.form = {
+          description:"",
+          name:""
+        }
+       await this.todoStore.getTodo()
       }
     },
-    async deleteCard(e){
-      console.log("value ",e)
-    }
+
   },
   async mounted(){
     this.todoStore.getTodo()
   },
-  
   components: { TodoCard },
 };
 </script>
@@ -53,7 +53,7 @@ export default {
       <button type="submit" class="button">Ekle</button>
     </form>
     <div class="wrapper">
-      <TodoCard :todo="da" :deleteCard="deleteCard" v-for="da in todoStore.datas" :key="da._id" />
+      <TodoCard :todo="da"  v-for="da in todoStore.datas" :key="da._id" />
     </div>
   </main>
 </template>

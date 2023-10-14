@@ -1,5 +1,5 @@
 <script>
-import { Transition } from "vue";
+import { Transition, nextTick } from "vue";
 import { useTodoStore } from "../stores/todoStore";
 
 export default {
@@ -15,11 +15,14 @@ export default {
   },
   methods : {
     async deleteSelectTodo(id){
-      this.todoStore.deleteTodo(id);
-      this.open = false
+     await this.todoStore.deleteTodo(id);
+      open = false
+     await this.todoStore.getTodo()
     }
   },
+  
   async mounted(){
+    console.log("todoss",this.todo)
     this.todoStore.getTodo()
   },
   components: { Transition },
@@ -36,7 +39,7 @@ export default {
         <button @click="open = false" class="closeBtn">X</button>
        </div>
         <div style="text-align: center;padding-top: 20px;">
-          <p><strong class="strong">{{ todo.title}}</strong> Silmek isteginize emin misiniz?</p>
+          <p><strong class="strong">{{ todo.name}}</strong> Silmek isteginize emin misiniz?</p>
           <button class="deleteButton" @click="deleteSelectTodo(todo._id)">Sil</button>
         </div>
       </div>

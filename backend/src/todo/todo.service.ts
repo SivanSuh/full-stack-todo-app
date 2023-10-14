@@ -10,11 +10,15 @@ export class TodoService {
         return await this.todoModel.find()
     }
     async addTodo(allTodo){
-        const newTodo = new this.todoModel(allTodo);
+        const newTodo = await new this.todoModel(allTodo);
         return await newTodo.save()
     }
     async deleteTodo(id) {
-        const selectTodo = this.todoModel.findByIdAndDelete(id)
+        const selectTodo = await this.todoModel.findByIdAndDelete(id)
         return selectTodo
+    }
+    async updateTodo(id,body){
+        const selectUpdateTodo = await this.todoModel.findByIdAndUpdate({_id : id},body)
+        return selectUpdateTodo
     }
 }
