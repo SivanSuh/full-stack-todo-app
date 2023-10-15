@@ -17,8 +17,12 @@ export class TodoService {
         const selectTodo = await this.todoModel.findByIdAndDelete(id)
         return selectTodo
     }
-    async updateTodo(id,body){
-        const selectUpdateTodo = await this.todoModel.findByIdAndUpdate({_id : id},body)
+    async updateTodo(id:string,body:Todo):Promise<Todo>{
+        const selectUpdateTodo = await this.todoModel.findByIdAndUpdate(id,body,{new :true})
         return selectUpdateTodo
+    }
+    async selectTodo(id:string){
+        const selected = await this.todoModel.findById(id)
+        return selected
     }
 }

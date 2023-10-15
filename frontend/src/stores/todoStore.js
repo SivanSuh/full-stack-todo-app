@@ -4,6 +4,7 @@ export const useTodoStore = defineStore("todo-store", {
   state: () => ({
     datas: [],
     name: "Merhaba",
+    selectData: null,
   }),
   actions: {
     async getTodo() {
@@ -35,6 +36,27 @@ export const useTodoStore = defineStore("todo-store", {
         });
 
         return response;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updateTodo(id, body) {
+      try {
+        const response = await fetch(`http://localhost:3000/todo/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async selectTodo(id) {
+      try {
+        const select = await fetch(`http://localhost:3000/todo/${id}`);
+        const data = await select.json();
+        this.selectData = data;
       } catch (error) {
         console.log(error);
       }

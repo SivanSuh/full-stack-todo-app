@@ -31,6 +31,10 @@ export default {
        await this.todoStore.getTodo()
       }
     },
+    selectTodos(id){
+      const data = this.todoStore.datas.find((item) => item._id === id)
+      console.log("seçilen data ",data)
+    }
 
   },
   async mounted(){

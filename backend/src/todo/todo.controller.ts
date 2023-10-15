@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { TodoProps } from './todo.model';
 import { TodoService } from './todo.service';
+import { Todo } from 'src/schema/todo.schema';
 
 @Controller('todo')
 export class TodoController {
@@ -14,12 +15,16 @@ export class TodoController {
     return this.todoService.getTodo();
   }
   @Delete(":id")
-  deleteTodo(@Param() params: any){
-    console.log("params",params.id)
-    return this.todoService.deleteTodo(params.id)
+  deleteTodo(@Param("id") id: string){
+    console.log("params",id)
+    return this.todoService.deleteTodo(id)
   }
   @Put(":id")
-  updateTodo(@Param() id:string, @Body() body:any){
+  updateTodo(@Param("id") id:string, @Body() body:Todo){
     return this.todoService.updateTodo(id,body)
   } 
+  @Get(":id")
+  selectTodo(@Param("id") id:string){
+    return this.todoService.selectTodo(id)
+  }
 }
