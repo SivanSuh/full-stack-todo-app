@@ -26,7 +26,7 @@ export default {
         <p class="">{{todo.description}}</p>
         <div class="buttonContainer">
             <router-link v-bind:to="`/update-page/${todo._id}`">Güncelle</router-link>
-            <button @click="isVisible">
+            <button @click="isVisible" class="DeleteBtn">
                 Sil
             </button>
         </div>
@@ -58,7 +58,13 @@ export default {
     word-break: break-all;
     padding: 5px;
 }
-/* .card:hover{
-    transform: scale(0.9);
-} */
+
+.DeleteBtn {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    margin-left: 10px;
+    border: none;
+    cursor: pointer;
+}
 </style>

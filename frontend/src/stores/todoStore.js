@@ -4,7 +4,7 @@ export const useTodoStore = defineStore("todo-store", {
   state: () => ({
     datas: [],
     name: "Merhaba",
-    selectData: null,
+    selectData: {},
   }),
   actions: {
     async getTodo() {

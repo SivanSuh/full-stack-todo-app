@@ -6,9 +6,21 @@ export default {
     const apps = useTodoStore()
     return {apps}
   },
+  methods:{
+    async submitForm(){
+      const { _id,name,description} = this.apps.selectData;
+      if(!description.trim() && !name.trim()){
+        return 
+      }
+      else {
+       await this.apps.updateTodo(_id,this.apps.selectData)
+       await this.apps.getTodo()
+      }
+    },
+  },
   async mounted(){
-   this.apps.selectTodo(this.$route.params.id)  
-  }
+   await this.apps.selectTodo(this.$route.params.id)  
+  },
 }
 
 </script>
@@ -16,9 +28,9 @@ export default {
 <template>
     <div class="container">
         <router-link to="/">Back to</router-link>
-        <form class="formContainer">
-          <input class="input" placeholder="Enter Name" />
-          <input class="input" placeholder="Enter Description" name="description" />
+        <form class="formContainer" @submit.prevent="submitForm">
+          <input v-model="apps.selectData.name " class="input" name="name"  placeholder="Enter Name" />
+          <input v-model="apps.selectData.description " class="input"  placeholder="Enter Description" name="description" />
           <button type="submit" class="button">Ekle</button>
         </form>
     </div>
@@ -33,6 +45,8 @@ export default {
 }
 .formContainer {
   gap: 5px;
+  display: flex;
+  flex-direction: column;
 }
 .button {
   padding: 5px;
