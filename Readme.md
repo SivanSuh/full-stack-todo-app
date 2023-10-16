@@ -10,3 +10,5 @@
 
 - Nest Js
 - Mongo Db
+
+![App Screenshot](./frontend/public/fullstackCrud1.png)

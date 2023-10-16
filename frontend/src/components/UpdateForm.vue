@@ -15,6 +15,7 @@ export default {
       else {
        await this.apps.updateTodo(_id,this.apps.selectData)
        await this.apps.getTodo()
+       this.$route.push("/")
       }
     },
   },
